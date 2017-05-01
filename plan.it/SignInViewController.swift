@@ -67,7 +67,7 @@ class SignInViewController: UIViewController {
                     let interestsArray: [Bool] = [false, false, false, false, false, false, false, false]
                     
                     let newUser = DB()
-                    newUser.insertNewUser(email: self.emailText.text!, description: " ", events: " ", favorites: " ", followers: " ", following: " ", image: " ", interests: interestsArray, firstName: self.firstName.text!, lastName: self.lastName.text!, notifications: " ", sustainabilityScore: 0, type: 0)
+                    newUser.insertNewUser(email: self.emailText.text!, description: "", events: "", favorites: "", followers: "", following: "", image: "", interests: interestsArray, firstName: self.firstName.text!, lastName: self.lastName.text!, notifications: "", sustainabilityScore: 10, type: 0)
                     
                     
                     

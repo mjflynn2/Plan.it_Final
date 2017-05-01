@@ -17,8 +17,17 @@ class EventDetailControllerViewController: UIViewController {
     @IBOutlet weak var eventDate: UILabel!
     @IBOutlet weak var eventTime: UILabel!
     @IBOutlet weak var eventLocation: UILabel!
+    @IBOutlet weak var eventPrice: UILabel!
+    // when I change eventPrice I need to add $ before the amount
+    @IBOutlet weak var eventRSVPs: UILabel!
     
     @IBAction func rsvpButton(_ sender: Any) {
+        
+        // will take event key and add it to the array of rsvp events
+        
+        // also add 10 points to sustainability score
+        
+        // create alert that confirmed that the you have successfully rsvp'd to the event
     }
     
     @IBAction func inviteButton(_ sender: Any) {
@@ -36,24 +45,8 @@ class EventDetailControllerViewController: UIViewController {
 
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        //navigationController?.setNavigationBarHidden(true, animated: true)
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
-        
-        //let newUser = DB()
-        
-        //newUser.getUserFullName()
-    
-        //print("fullname = " + newUser.name)
-        
-        //let fullName = newUser.name
-        
-        //eventTitle.text = fullName
-        
         
         self.configureView()
     }
@@ -63,7 +56,7 @@ class EventDetailControllerViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    var detailItem: NSDate? {
+    var detailItem: String? {
         didSet {
             // Update the view.
             self.configureView()

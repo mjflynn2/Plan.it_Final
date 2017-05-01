@@ -45,6 +45,8 @@
 		3099B56C1E877B7C004604EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3099B56B1E877B7C004604EB /* Assets.xcassets */; };
 		3099B56F1E877B7C004604EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3099B56D1E877B7C004604EB /* LaunchScreen.storyboard */; };
 		3099B59F1E8AE2DC004604EB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3099B59E1E8AE2DC004604EB /* GoogleService-Info.plist */; };
+		30DE1C3E1EB7B77C003D1993 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DE1C3D1EB7B77C003D1993 /* SettingsViewController.swift */; };
+		30DE1C401EB7C751003D1993 /* default_picture.png in Resources */ = {isa = PBXBuildFile; fileRef = 30DE1C3F1EB7C751003D1993 /* default_picture.png */; };
 		C26226DA3E1459141FCB4246 /* Pods_plan_it.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD57EF2BD1EEC181102E87AC /* Pods_plan_it.framework */; };
 /* End PBXBuildFile section */
 
@@ -90,6 +92,8 @@
 		3099B5701E877B7C004604EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3099B5781E878E0B004604EB /* plan.it.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = plan.it.entitlements; sourceTree = "<group>"; };
 		3099B59E1E8AE2DC004604EB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		30DE1C3D1EB7B77C003D1993 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		30DE1C3F1EB7C751003D1993 /* default_picture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_picture.png; sourceTree = "<group>"; };
 		65A1E90994BDB577BF2952DD /* Pods-plan.it.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-plan.it.debug.xcconfig"; path = "Pods/Target Support Files/Pods-plan.it/Pods-plan.it.debug.xcconfig"; sourceTree = "<group>"; };
 		AD57EF2BD1EEC181102E87AC /* Pods_plan_it.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_plan_it.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E98617F115E594BC48BD4513 /* Pods-plan.it.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-plan.it.release.xcconfig"; path = "Pods/Target Support Files/Pods-plan.it/Pods-plan.it.release.xcconfig"; sourceTree = "<group>"; };
@@ -131,6 +135,7 @@
 			children = (
 				30531CB61EA6D8A600656619 /* EventsSplitViewController.swift */,
 				3099B5651E877B7C004604EB /* Main.storyboard */,
+				30DE1C3D1EB7B77C003D1993 /* SettingsViewController.swift */,
 				301360771EAF1CD3001F9966 /* ProfileViewController.swift */,
 				30531CB21EA55B5200656619 /* EventDetailControllerViewController.swift */,
 				30531CB01EA55AF500656619 /* EventsMasterTableViewController.swift */,
@@ -139,6 +144,7 @@
 				30531CBA1EA82D2F00656619 /* User.swift */,
 				3099B5631E877B7C004604EB /* SignInViewController.swift */,
 				19D375841EB2910D001D1518 /* Launch.png */,
+				30DE1C3F1EB7C751003D1993 /* default_picture.png */,
 				191CD94B1EB542DC009CC4F1 /* Asset 4.png */,
 				191CD94C1EB542DC009CC4F1 /* Asset 4@0.5x.png */,
 				191CD94D1EB542DC009CC4F1 /* Asset 5.png */,
@@ -259,6 +265,7 @@
 			files = (
 				191CD9591EB542DC009CC4F1 /* Asset 6.png in Resources */,
 				3013607D1EAF26B9001F9966 /* ic_person_black_16@2x.png in Resources */,
+				30DE1C401EB7C751003D1993 /* default_picture.png in Resources */,
 				30531CB91EA7224800656619 /* IMG_1417-950x599.jpg in Resources */,
 				3013607C1EAF26B9001F9966 /* ic_person_black_16.png in Resources */,
 				191CD9571EB542DC009CC4F1 /* Asset 5.png in Resources */,
@@ -349,6 +356,7 @@
 				30531C8B1E96DA8300656619 /* MyPagesViewController.swift in Sources */,
 				30531CB11EA55AF500656619 /* EventsMasterTableViewController.swift in Sources */,
 				30531CBB1EA82D2F00656619 /* User.swift in Sources */,
+				30DE1C3E1EB7B77C003D1993 /* SettingsViewController.swift in Sources */,
 				30531C871E96BD7500656619 /* Database.swift in Sources */,
 				301360781EAF1CD3001F9966 /* ProfileViewController.swift in Sources */,
 				3099B5621E877B7C004604EB /* AppDelegate.swift in Sources */,
