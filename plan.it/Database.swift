@@ -12,8 +12,7 @@ import Firebase
 
 class DB {
     
-    var testUser: User?
-    
+
     // reference to the Firebase data store
     private var dbRef : FIRDatabaseReference!
     
@@ -39,14 +38,14 @@ class DB {
         
     }
     
-    func insertNewUser(email: String, description: String, events: String, favorites: String, followers: String, following: String, image: String, interests: Array<Bool>, firstName: String, lastName: String, notifications: String, sustainabilityScore: Int, type: Int) {
+    func insertNewUser(email: String, description: String, rsvps: Array<String>, favorites: String, followers: String, following: String, image: String, interests: Array<Bool>, firstName: String, lastName: String, notifications: String, sustainabilityScore: Int, type: Int) {
         
         // gets the randomized key for the user
         //let key = self.usersDB.childByAutoId().key
         
         let key = FIRAuth.auth()!.currentUser!.uid
         
-        let user : NSDictionary = ["email" : email, "description" : description, "events" : events, "favorites" : favorites, "followers" : followers, "following" : following, "image" : image, "interests" : interests, "firstName" : firstName, "lastName" : lastName, "notifications" : notifications, "sustainabilityScore" : sustainabilityScore, "type" : type]
+        let user : NSDictionary = ["email" : email, "description" : description, "rsvps" : rsvps, "favorites" : favorites, "followers" : followers, "following" : following, "image" : image, "interests" : interests, "firstName" : firstName, "lastName" : lastName, "notifications" : notifications, "sustainabilityScore" : sustainabilityScore, "type" : type]
         
         self.usersDB.updateChildValues(["/\(key)" : user])
         
@@ -63,6 +62,28 @@ class DB {
         //self.interestRef.updateChildValues(["/interests/\(key)" : arrayofInterests])
         
     }
+    
+    func updateSustainabilityScore(addedNumber : Int) {
+        
+        let key = FIRAuth.auth()!.currentUser!.uid
+        
+        self.dbRef.child("users").child(key).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+             if let value = snapshot.value as? NSDictionary {
+                
+                var score = (value["sustainabilityScore"] as? Int)!
+                
+                score = score + addedNumber
+                
+                self.dbRef.child("users/\(key)/sustainabilityScore").setValue(score)
+                
+            
+             }
+            
+        })
+
+    }
+    
     
     /*
     

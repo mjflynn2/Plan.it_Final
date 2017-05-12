@@ -42,6 +42,10 @@
 		3013607C1EAF26B9001F9966 /* ic_person_black_16.png in Resources */ = {isa = PBXBuildFile; fileRef = 301360791EAF26B9001F9966 /* ic_person_black_16.png */; };
 		3013607D1EAF26B9001F9966 /* ic_person_black_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3013607A1EAF26B9001F9966 /* ic_person_black_16@2x.png */; };
 		3013607E1EAF26B9001F9966 /* ic_person_black_16@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3013607B1EAF26B9001F9966 /* ic_person_black_16@3x.png */; };
+		3013BE271EBBB86200E08431 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3013BE261EBBB86200E08431 /* Event.swift */; };
+		3013BE2B1EC157D700E08431 /* EventViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3013BE2A1EC157D700E08431 /* EventViewCell.swift */; };
+		301BEE091EC57E5300D07AE9 /* MyEventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301BEE081EC57E5300D07AE9 /* MyEventsTableViewController.swift */; };
+		301BEE0B1EC57E9B00D07AE9 /* MyEventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301BEE0A1EC57E9B00D07AE9 /* MyEventsTableViewCell.swift */; };
 		30531C7B1E8B60B600656619 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30531C7A1E8B60B600656619 /* LogInViewController.swift */; };
 		30531C871E96BD7500656619 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30531C861E96BD7500656619 /* Database.swift */; };
 		30531C891E96D9CA00656619 /* InterestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30531C881E96D9CA00656619 /* InterestsViewController.swift */; };
@@ -51,7 +55,6 @@
 		30531CB31EA55B5200656619 /* EventDetailControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30531CB21EA55B5200656619 /* EventDetailControllerViewController.swift */; };
 		30531CB71EA6D8A600656619 /* EventsSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30531CB61EA6D8A600656619 /* EventsSplitViewController.swift */; };
 		30531CB91EA7224800656619 /* IMG_1417-950x599.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 30531CB81EA7224800656619 /* IMG_1417-950x599.jpg */; };
-		30531CBB1EA82D2F00656619 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30531CBA1EA82D2F00656619 /* User.swift */; };
 		3099B5621E877B7C004604EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3099B5611E877B7C004604EB /* AppDelegate.swift */; };
 		3099B5641E877B7C004604EB /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3099B5631E877B7C004604EB /* SignInViewController.swift */; };
 		3099B5671E877B7C004604EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3099B5651E877B7C004604EB /* Main.storyboard */; };
@@ -100,6 +103,10 @@
 		301360791EAF26B9001F9966 /* ic_person_black_16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_person_black_16.png; sourceTree = "<group>"; };
 		3013607A1EAF26B9001F9966 /* ic_person_black_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_person_black_16@2x.png"; sourceTree = "<group>"; };
 		3013607B1EAF26B9001F9966 /* ic_person_black_16@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_person_black_16@3x.png"; sourceTree = "<group>"; };
+		3013BE261EBBB86200E08431 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		3013BE2A1EC157D700E08431 /* EventViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventViewCell.swift; sourceTree = "<group>"; };
+		301BEE081EC57E5300D07AE9 /* MyEventsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyEventsTableViewController.swift; sourceTree = "<group>"; };
+		301BEE0A1EC57E9B00D07AE9 /* MyEventsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyEventsTableViewCell.swift; sourceTree = "<group>"; };
 		30531C7A1E8B60B600656619 /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		30531C861E96BD7500656619 /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		30531C881E96D9CA00656619 /* InterestsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterestsViewController.swift; sourceTree = "<group>"; };
@@ -109,7 +116,6 @@
 		30531CB21EA55B5200656619 /* EventDetailControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailControllerViewController.swift; sourceTree = "<group>"; };
 		30531CB61EA6D8A600656619 /* EventsSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsSplitViewController.swift; sourceTree = "<group>"; };
 		30531CB81EA7224800656619 /* IMG_1417-950x599.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "IMG_1417-950x599.jpg"; sourceTree = "<group>"; };
-		30531CBA1EA82D2F00656619 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3099B55E1E877B7C004604EB /* plan.it.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = plan.it.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3099B5611E877B7C004604EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3099B5631E877B7C004604EB /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -161,15 +167,18 @@
 		3099B5601E877B7C004604EB /* plan.it */ = {
 			isa = PBXGroup;
 			children = (
+				3013BE2A1EC157D700E08431 /* EventViewCell.swift */,
+				3013BE261EBBB86200E08431 /* Event.swift */,
 				30531CB61EA6D8A600656619 /* EventsSplitViewController.swift */,
 				3099B5651E877B7C004604EB /* Main.storyboard */,
+				301BEE0A1EC57E9B00D07AE9 /* MyEventsTableViewCell.swift */,
+				301BEE081EC57E5300D07AE9 /* MyEventsTableViewController.swift */,
 				30DE1C3D1EB7B77C003D1993 /* SettingsViewController.swift */,
 				301360771EAF1CD3001F9966 /* ProfileViewController.swift */,
 				30531CB21EA55B5200656619 /* EventDetailControllerViewController.swift */,
 				30531CB01EA55AF500656619 /* EventsMasterTableViewController.swift */,
 				3099B5611E877B7C004604EB /* AppDelegate.swift */,
 				30531C861E96BD7500656619 /* Database.swift */,
-				30531CBA1EA82D2F00656619 /* User.swift */,
 				3099B5631E877B7C004604EB /* SignInViewController.swift */,
 				19D375841EB2910D001D1518 /* Launch.png */,
 				30DE1C3F1EB7C751003D1993 /* default_picture.png */,
@@ -411,11 +420,14 @@
 				30531C7B1E8B60B600656619 /* LogInViewController.swift in Sources */,
 				30531C8B1E96DA8300656619 /* MyPagesViewController.swift in Sources */,
 				30531CB11EA55AF500656619 /* EventsMasterTableViewController.swift in Sources */,
-				30531CBB1EA82D2F00656619 /* User.swift in Sources */,
 				30DE1C3E1EB7B77C003D1993 /* SettingsViewController.swift in Sources */,
 				30531C871E96BD7500656619 /* Database.swift in Sources */,
+				301BEE0B1EC57E9B00D07AE9 /* MyEventsTableViewCell.swift in Sources */,
+				301BEE091EC57E5300D07AE9 /* MyEventsTableViewController.swift in Sources */,
 				301360781EAF1CD3001F9966 /* ProfileViewController.swift in Sources */,
+				3013BE2B1EC157D700E08431 /* EventViewCell.swift in Sources */,
 				3099B5621E877B7C004604EB /* AppDelegate.swift in Sources */,
+				3013BE271EBBB86200E08431 /* Event.swift in Sources */,
 				30531C891E96D9CA00656619 /* InterestsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

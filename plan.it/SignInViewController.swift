@@ -14,7 +14,7 @@ import QuartzCore
 
 
 
-class SignInViewController: UIViewController {
+class SignInViewController: UIViewController, UITextFieldDelegate {
     
     //constant
     let loginToList = "LoginToList"
@@ -66,8 +66,10 @@ class SignInViewController: UIViewController {
                     // adding the new users to the database
                     let interestsArray: [Bool] = [false, false, false, false, false, false, false, false]
                     
+                    let emptyRSVPArray: [String] = ["eventKeyDummy"]
+                    
                     let newUser = DB()
-                    newUser.insertNewUser(email: self.emailText.text!, description: "", events: "", favorites: "", followers: "", following: "", image: "", interests: interestsArray, firstName: self.firstName.text!, lastName: self.lastName.text!, notifications: "", sustainabilityScore: 10, type: 0)
+                    newUser.insertNewUser(email: self.emailText.text!, description: "", rsvps: emptyRSVPArray, favorites: "", followers: "", following: "", image: "", interests: interestsArray, firstName: self.firstName.text!, lastName: self.lastName.text!, notifications: "", sustainabilityScore: 10, type: 0)
                     
                     
                     
@@ -170,6 +172,20 @@ class SignInViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        
+        return true
+        
+    }
+
 
 
 }

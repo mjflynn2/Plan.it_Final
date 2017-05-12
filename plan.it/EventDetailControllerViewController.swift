@@ -10,18 +10,73 @@ import UIKit
 import Firebase
 
 class EventDetailControllerViewController: UIViewController {
+    
+    let eventReference = FIRDatabase.database().reference().child("events")
+    
+    var dbRef: FIRDatabaseReference!
+    var storage = FIRStorage.storage().reference()
+    
+    let uid = (FIRAuth.auth()?.currentUser?.uid)!
 
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
     @IBOutlet weak var eventImage: UIImageView!
     @IBOutlet weak var eventTitle: UILabel!
     @IBOutlet weak var eventDate: UILabel!
     @IBOutlet weak var eventTime: UILabel!
     @IBOutlet weak var eventLocation: UILabel!
     @IBOutlet weak var eventPrice: UILabel!
-    // when I change eventPrice I need to add $ before the amount
-    @IBOutlet weak var eventRSVPs: UILabel!
+    @IBOutlet weak var eventDescription: UITextView!
+    
+    
+    var eventDict = [String: String] ()
+    
+    var eventLink : String = ""
+    
+    var uniqueKeyId : String = ""
     
     @IBAction func rsvpButton(_ sender: Any) {
+        
+        if (self.uniqueKeyId.characters.count > 0) {
+            
+            self.dbRef.child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                if let value = snapshot.value as? NSDictionary {
+                    
+                    var rsvpArray = [String]()
+                    rsvpArray = (value["rsvps"] as? [String])!
+                    
+                    rsvpArray.append(self.uniqueKeyId)
+                    
+                    //self.dbRef.child("users/\(uid)/rsvps").setValue(uniqueKeyId)
+                    self.dbRef.child("users/\(self.uid)/rsvps").setValue(rsvpArray)
+                    
+                }
+                
+                
+            })
+            
+            //self.dbRef.child("users/\(uid)/rsvps").setValue(uniqueKeyId)
+            
+        } else {
+            
+            print("key is empty")
+        }
+        
+        let user = DB()
+        
+        user.updateSustainabilityScore(addedNumber: 10)
+        
+        let alertController = UIAlertController(title: "Success", message: "You have successfully RSVP'd to this Event, You have been awarded 10 points to your Sustainability Score!!", preferredStyle: .alert)
+        
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+        
+        // need to add 10 points to sustainability score
+        
+        // call a function to grab sustainability score, add 10 to it and setValue again
+        
+        
         
         // will take event key and add it to the array of rsvp events
         
@@ -30,17 +85,131 @@ class EventDetailControllerViewController: UIViewController {
         // create alert that confirmed that the you have successfully rsvp'd to the event
     }
     
+    
+    
     @IBAction func inviteButton(_ sender: Any) {
+        
+        /*
+        if let invite = FIRInvites.inviteDialog() {
+            invite.setInviteDelegate(self as! FIRInviteDelegate)
+            
+            // NOTE: You must have the App Store ID set in your developer console project
+            // in order for invitations to successfully be sent.
+            
+            // A message hint for the dialog. Note this manifests differently depending on the
+            // received invitation type. For example, in an email invite this appears as the subject.
+            invite.setMessage("Try this out!\n -\(FIRAuth.auth()?.currentUser?.displayName ?? "")")
+            // Title for the dialog, this is what the user sees before sending the invites.
+            invite.setTitle("Plan.it")
+            //invite.setDeepLink("app_url")
+            invite.setCallToActionText("Install!")
+            //invite.setCustomImage("https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png")
+            invite.open()
+        }
+        */
+        // needs functionality to invite event with others through text message
     }
+    
+    @IBAction func getTicketsButton(_ sender: Any) {
+
+        
+        let URLString = self.eventLink.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+        let linkURL = NSURL(string: URLString!)
+
+        if UIApplication.shared.canOpenURL(linkURL! as URL) {
+            
+            UIApplication.shared.open(linkURL! as URL, options: [:], completionHandler: { (success) in
+                print("Open URL Successfully : \(success)")
+                
+            })
+            
+            
+        } else {
+            
+            UIApplication.shared.open(URL(string: "http://www.google.com")!)
+        }
+    
+    }
+    
     
     
     func configureView() {
         // Update the user interface for the detail item.
+        
         if let detail = self.detailItem {
-            if let label = self.detailDescriptionLabel {
-                label.text = detail.description
-            }
+            print("key is : " + detail)
+            
+            self.uniqueKeyId = detail
+            
         }
+    }
+    
+    func getEventInfo(completion: @escaping ([String: String]) -> ()) {
+        
+        self.eventReference.child(uniqueKeyId).observeSingleEvent(of: .value, with: { (snapshot) in
+    
+            if let value = snapshot.value as? NSDictionary {
+                
+                self.eventDict.updateValue((value["name"] as? String)!, forKey: "name")
+                self.eventDict.updateValue((value["date"] as? String)!, forKey: "date")
+                self.eventDict.updateValue((value["time"] as? String)!, forKey: "time")
+                self.eventDict.updateValue((value["location"] as? String)!, forKey: "location")
+                self.eventDict.updateValue((value["price"] as? String)!, forKey: "price")
+                self.eventDict.updateValue((value["description"] as? String)!, forKey: "description")
+                self.eventDict.updateValue((value["link"] as? String)!, forKey: "link")
+                
+                completion(self.eventDict)
+            }
+            
+            
+        })
+        
+    }
+    
+    func downloadingImage(uniqueKey: String) {
+        
+        print("uniqueKey")
+        print(uniqueKey)
+        
+        
+        self.dbRef.child("users").child(uid).child("image").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if snapshot.value is NSNull {
+                print("error")
+            } else {
+                
+                let imageString = snapshot.value as! String
+                
+                if imageString.characters.count > 0 {
+                    
+                    let imageURL = self.storage.child("eventPhotos/\(uniqueKey).png")
+                    
+                    imageURL.downloadURL { url, error in
+                        
+                        if let sessionError = error {
+                            
+                            print("error is :")
+                            print(sessionError.localizedDescription)
+                            
+                        } else {
+                            
+                            let data = NSData(contentsOf: url!)
+                            let image = UIImage(data: data! as Data)
+                            self.eventImage.image = image
+                            
+                        }
+                    }
+
+                }
+
+            }
+            
+            
+                
+            
+            
+        })
     }
 
     
@@ -48,9 +217,36 @@ class EventDetailControllerViewController: UIViewController {
         
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
+        eventDescription.isScrollEnabled = false
+        
+        dbRef = FIRDatabase.database().reference()
+        
+        self.configureView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
+        eventDescription.isScrollEnabled = true
+        
+        self.downloadingImage(uniqueKey: self.uniqueKeyId)
+        
+        // call functions to load all the information for event
+        self.getEventInfo { (eventDictionary) -> () in
+        
+            self.eventTitle.text = eventDictionary["name"]
+            self.eventDate.text = eventDictionary["date"]
+            self.eventTime.text = eventDictionary["time"]
+            self.eventLocation.text = eventDictionary["location"]
+            self.eventPrice.text = eventDictionary["price"]
+            self.eventDescription.text = eventDictionary["description"]
+            
+            self.eventLink = eventDictionary["link"]!
+            
+            
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {

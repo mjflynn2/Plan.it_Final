@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class SettingsViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class SettingsViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate {
     
     // reference to the Firebase data store
     var dbRef: FIRDatabaseReference!
@@ -18,6 +18,8 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate, 
     
     var imageURL = ""
     let uid = (FIRAuth.auth()?.currentUser?.uid)!
+    
+    var profileInfo = [String]()
 
     
     @IBOutlet weak var profileImage: UIImageView!
@@ -48,6 +50,13 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate, 
             
             self.dbRef.child("users/\(uid)/description").setValue(self.profileBio.text)
         }
+        
+        let alertController = UIAlertController(title: "Success", message: "You have successfully updated your account settings!", preferredStyle: .alert)
+        
+        let defaultAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        
+        self.present(alertController, animated: true, completion: nil)
 
     }
     
@@ -157,6 +166,28 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate, 
 
     }
     
+    func profileInfo(completion: @escaping (Array<String>) -> ()) {
+        
+        self.dbRef.child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if let dict = snapshot.value as? NSDictionary {
+                
+                let first = dict["firstName"] as? String
+                let last = dict["lastName"] as? String
+                let bio = dict["description"] as? String
+                
+                var infoArray = [String]()
+                infoArray.append(first!)
+                infoArray.append(last!)
+                infoArray.append(bio!)
+                
+                completion(infoArray)
+                
+            }
+            
+        })
+    }
+    
     
     
     override func viewDidLoad() {
@@ -175,12 +206,43 @@ class SettingsViewController: UIViewController, UINavigationControllerDelegate, 
     override func viewWillAppear(_ animated: Bool) {
         
         self.downloadImage()
+        
+        self.profileInfo { (profileinfo) -> () in
+        
+            self.profileInfo = profileinfo
+            
+            let firstName = self.profileInfo[0]
+            let lastName = self.profileInfo[1]
+            let bio = self.profileInfo[2]
+            
+            self.firstName.text = firstName
+            self.firstName.textColor = UIColor.lightGray
+            self.lastName.text = lastName
+            self.lastName.textColor = UIColor.lightGray
+            self.profileBio.text = bio
+            self.profileBio.textColor = UIColor.lightGray
+            
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        
+        return true
+        
+    }
+
     
 
     /*

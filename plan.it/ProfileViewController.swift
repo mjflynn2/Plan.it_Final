@@ -15,7 +15,10 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var fullName: UILabel!
     @IBOutlet weak var bio: UILabel!
-    @IBOutlet weak var stats: UILabel!
+    @IBOutlet weak var sustainabilityScore: UILabel!
+    @IBOutlet weak var sustainableTitle: UILabel!
+    
+    
     
     // reference to the Firebase data store
     
@@ -29,8 +32,6 @@ class ProfileViewController: UIViewController {
     
     
     func getUserFullName(completion: @escaping (String) -> ()) {
-        
-        let uid = (FIRAuth.auth()?.currentUser?.uid)!
         
         self.dbRef.child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
             
@@ -59,8 +60,6 @@ class ProfileViewController: UIViewController {
     
     func getBio(completion: @escaping (String) -> ()) {
         
-        let uid = (FIRAuth.auth()?.currentUser?.uid)!
-        
         self.dbRef.child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
             
             
@@ -80,14 +79,34 @@ class ProfileViewController: UIViewController {
 
     }
     
+    func getSustainabilityScore(completion: @escaping (Int) -> ()) {
+        
+        self.dbRef.child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if let value = snapshot.value as? NSDictionary {
+                
+                let score = value["sustainabilityScore"] as? Int
+                
+                completion(score!)
+                
+            } else {
+                
+                let nullValue = 0
+                completion(nullValue)
+            }
+        })
+    }
+    
     func downloadImage () {
         
-        self.dbRef.child("users").child(uid).observeSingleEvent(of: .value) { (snapshot: FIRDataSnapshot) in
+        self.dbRef.child("users").child(uid).child("image").observeSingleEvent(of: .value) { (snapshot: FIRDataSnapshot) in
             
             
-            if let firebaseValue = snapshot.value as? NSDictionary {
+            if snapshot.value is NSNull {
+                print("error")
+            } else {
                 
-                self.imageURL = firebaseValue["image"] as! String
+                self.imageURL = snapshot.value as! String
                 
                 print("self.imageURL :" + self.imageURL)
                 
@@ -125,24 +144,31 @@ class ProfileViewController: UIViewController {
     
     
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(
             title: "", style: .plain, target: nil, action: nil)
 
-        /*
-        self.profileImage = UIImageView(frame: CGRectMake(0, 0, self.view.bounds.width * 0.19 , self.view.bounds.height * 0.1))
-        self.profileImage.layer.borderWidth = 1
-        self.profileImage.layer.masksToBounds = false
-        self.profileImage.layer.borderColor = UIColor.blackColor().CGColor
-        self.profileImage.layer.cornerRadius = self.profileImage.frame.height/2
-        self.profileImage.clipsToBounds = true
-        slider.addSubview(self.profileImage)
-        */
         self.profileImage.layer.cornerRadius = self.profileImage.frame.height / 2
         self.profileImage.clipsToBounds = true
+        
+        //let rsvpEvents = UITableView(frame: view.bounds)
+        //view.addSubview(rsvpEvents)
+        //self.rsvpEvents = rsvpEvents
+        
+        //self.rsvpEvents.register(EventViewCell.self, forCellReuseIdentifier: "customCell")
+        
+        
+        
+        //rsvpEvents.dataSource = self as UITableViewDataSource
+        //rsvpEvents.delegate = self as UITableViewDelegate
     }
+    
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -174,6 +200,45 @@ class ProfileViewController: UIViewController {
             }
             
         }
+        
+        self.getSustainabilityScore { (score) -> () in
+            
+            if score > 0 {
+                
+                self.sustainabilityScore.text = score.description
+                
+                if score > 0 && score < 20 {
+                    
+                    // sustainability seedling
+                    self.sustainableTitle.text = "Sustainability Seedling"
+                    
+                } else if score >= 20 && score < 40 {
+                    
+                    // sustainability sprout
+                    self.sustainableTitle.text = "Sustainability Sprout"
+                    
+                } else if score >= 40 && score < 60 {
+                    
+                    // sustainability blossom
+                    self.sustainableTitle.text = "Sustainability Sapling"
+                    
+                } else if score >= 60 && score < 80 {
+                    
+                    // sustainably established
+                    self.sustainableTitle.text = "Sustainability Star"
+                    
+                } else if score >= 80 {
+                    
+                    // sustainability superstar
+                    self.sustainableTitle.text = "Sustainability Superstar"
+                    
+                }
+                
+            } else {
+                
+                self.sustainabilityScore.text = "0"
+            }
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -184,7 +249,6 @@ class ProfileViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation
@@ -197,3 +261,70 @@ class ProfileViewController: UIViewController {
     */
 
 }
+
+/*
+extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //return elements.count
+        return basicArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        //let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! EventViewCell
+        //var cell: EventViewCell
+        
+        
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as? EventViewCell {
+            
+            let title = basicArray[indexPath.row]
+            cell.eventTitle.text = title
+            
+            
+        }
+        
+        //(cell as! EventViewCell).eventTitle.text = basicArray[indexPath.row]
+        
+        
+        
+        
+        
+        /*
+         print("in tableView?")
+         var eachEvent = eventInfo()
+         
+         let arrayCount = eventArray.count - 1
+         let indexForArray = arrayCount - indexPath.row
+         
+         print("index is : " + indexForArray.description)
+         eachEvent = self.eventArray[indexForArray]
+         let Title = eachEvent.eventTitle
+         let Date = eachEvent.eventDate
+         let Time = eachEvent.eventTime
+         
+         l
+         
+         print("Title : " + Title)
+         print("Date : " + Date)
+         print("Time " + Time)
+         
+         cell.eventTitle.text = Title
+         cell.eventDate.text = Date
+         cell.eventTime.text = Time
+         print("almost returning cell")
+         */
+        
+        //let title = basicArray[indexPath.row]
+        
+        //cell.eventTitle.text = title
+        
+        //cell.eventTitle.text = title
+        
+        
+        
+        return cell
+    }
+    
+}
+*/
