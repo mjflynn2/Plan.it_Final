@@ -146,32 +146,30 @@ class MyEventsTableViewController: UITableViewController {
         let Time = eachRSVP.eventTime
         let rating = eachRSVP.eventRating
         
-        print("Title is :" + Title)
-        print("Data is : " + Date)
-        print("Time is : " + Time)
+//        print("Title is :" + Title)
+//        print("Data is : " + Date)
+//        print("Time is : " + Time)
+        print("Rating:")
+        print(rating)
         
         
         cell.eventTitle.text = Title
         cell.eventDate.text = Date
         cell.eventTime.text = Time
         
-        // TODO MARGOT for leafs
-         if rating == 1 {
-         // set photo to leaf for 1
-            //example
-            // self.leafImage.image = blah
-         } else if rating == 2 {
-         // set photo to leaf for 2
-         } else if rating == 3 {
-         // set photo to leaf for 3
-         } else if rating == 4 {
-         // set photo for leaf for 4
-         } else {
-         // default do leaf for 1?
-         }
+        // Update leaf image to reflect event sustainability score
+        if rating <= 1 {
+            cell.leafImage.image = UIImage(named: "Asset 25.png")
+        } else if rating == 2 {
+            cell.leafImage.image = UIImage(named: "Asset 26.png")
+        } else if rating == 3 {
+            cell.leafImage.image = UIImage(named: "Asset 27.png")
+        } else {
+            cell.leafImage.image = UIImage(named: "Asset 28.png")
+        }
+        return cell
         
 
-        return cell
     }
     
 

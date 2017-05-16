@@ -26,6 +26,7 @@ class EventDetailControllerViewController: UIViewController {
     @IBOutlet weak var eventPrice: UILabel!
     @IBOutlet weak var eventDescription: UITextView!
     
+    @IBOutlet var rsvpButton: UIButton!
     
     var eventDict = [String: String] ()
     
@@ -41,48 +42,56 @@ class EventDetailControllerViewController: UIViewController {
                 
                 if let value = snapshot.value as? NSDictionary {
                     
+                    // Fetch RSVP array from database for user
                     var rsvpArray = [String]()
                     rsvpArray = (value["rsvps"] as? [String])!
                     
-                    rsvpArray.append(self.uniqueKeyId)
+                    // Check if user is already RSVP'd for the event
+                    // _____________________________________________//
                     
-                    //self.dbRef.child("users/\(uid)/rsvps").setValue(uniqueKeyId)
-                    self.dbRef.child("users/\(self.uid)/rsvps").setValue(rsvpArray)
+                    // User has not already RSVP'd
+                    if (!rsvpArray.contains(self.uniqueKeyId)){
+                        
+                        // Add event to RSVP array
+                        rsvpArray.append(self.uniqueKeyId)
+                        
+                        // Update database with new RSVP
+                        self.dbRef.child("users/\(self.uid)/rsvps").setValue(rsvpArray)
+                        
+                        // Set RSVP button to "clicked" appearance
+                        self.rsvpButton.setImage(UIImage(named: "Asset 44@0.5x.png"), for: UIControlState.normal)
+                        
+                       // Update Sustainability Score for user
+                        let user = DB()
+                        user.updateSustainabilityScore(addedNumber: 10)
+                        
+                        // Confirm RSVP with alert
+                        let alertController = UIAlertController(title: "You're All Set!", message: "You have successfully RSVP'd and 10 points have been added to your Sustainability Score!", preferredStyle: .alert)
+                        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        alertController.addAction(defaultAction)
+                        self.present(alertController, animated: true, completion: nil)
+                    // _____________________________________________//
+                   
+                    // User has already RSVP'd
+                    } else {
+                        
+                        // Notify user that they have already RSVP'd with alert
+                        let alertController = UIAlertController(title: "Oops!", message: "You already RSVP'd to this event. Go to the My Events Tab to see all your active events.", preferredStyle: .alert)
+                        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        alertController.addAction(defaultAction)
+                        self.present(alertController, animated: true, completion: nil)
+                    }
+                    // _____________________________________________//
                     
                 }
                 
                 
             })
             
-            //self.dbRef.child("users/\(uid)/rsvps").setValue(uniqueKeyId)
-            
         } else {
             
             print("key is empty")
         }
-        
-        let user = DB()
-        
-        user.updateSustainabilityScore(addedNumber: 10)
-        
-        let alertController = UIAlertController(title: "Success", message: "You have successfully RSVP'd to this Event, You have been awarded 10 points to your Sustainability Score!!", preferredStyle: .alert)
-        
-        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertController.addAction(defaultAction)
-        
-        self.present(alertController, animated: true, completion: nil)
-        
-        // need to add 10 points to sustainability score
-        
-        // call a function to grab sustainability score, add 10 to it and setValue again
-        
-        
-        
-        // will take event key and add it to the array of rsvp events
-        
-        // also add 10 points to sustainability score
-        
-        // create alert that confirmed that the you have successfully rsvp'd to the event
     }
     
     

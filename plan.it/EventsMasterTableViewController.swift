@@ -130,21 +130,16 @@ class EventsMasterTableViewController: UITableViewController {
         cell.eventDate.text = Date
         cell.eventTime.text = Time
         
-        // TODO MARGOT for leafs
-        if rating == 1 {
-            // set photo to leaf for 1
-            //example
-            // cell.eventImage.image = blah
+        // Update leaf image to reflect event sustainability score
+        if rating <= 1 {
+            cell.eventImage.image = UIImage(named: "Asset 25.png")
         } else if rating == 2 {
-            // set photo to leaf for 2
+            cell.eventImage.image = UIImage(named: "Asset 26.png")
         } else if rating == 3 {
-            // set photo to leaf for 3
-        } else if rating == 4 {
-            // set photo for leaf for 4
+            cell.eventImage.image = UIImage(named: "Asset 27.png")
         } else {
-            // default do leaf for 1?
+            cell.eventImage.image = UIImage(named: "Asset 28.png")
         }
-         
         return cell
     }
     /*
@@ -191,10 +186,13 @@ class EventsMasterTableViewController: UITableViewController {
                         print("number of snapChildren")
                         print(snapshotChild.count)
                         
+                        // ensures no nil value 
+                        var rating = 0;
+                        
                         let Title = snapshotChild["name"] as? String
                         let Date = snapshotChild["date"] as? String
                         let Time = snapshotChild["time"] as? String
-                        let rating = snapshotChild["rating"] as? Int
+                        rating = (snapshotChild["rating"] as? Int)!
                         
                         
                     
@@ -202,7 +200,7 @@ class EventsMasterTableViewController: UITableViewController {
                         eachEvent.eventDate = Date!
                         eachEvent.eventTime = Time!
                         eachEvent.eventKey = uniqueKey
-                        eachEvent.eventRating = rating!
+                        eachEvent.eventRating = rating
                     
                         print("added Title :" + Title!)
                         print("added Date :" + Date!)

@@ -17,6 +17,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var bio: UILabel!
     @IBOutlet weak var sustainabilityScore: UILabel!
     @IBOutlet weak var sustainableTitle: UILabel!
+    @IBOutlet var ScoreImage: UIImageView!
     
     
     
@@ -210,26 +211,31 @@ class ProfileViewController: UIViewController {
                 if score > 0 && score < 20 {
                     
                     // sustainability seedling
+                    self.ScoreImage.image = UIImage(named: "SustainabilityScore_1.png")
                     self.sustainableTitle.text = "Sustainability Seedling"
                     
                 } else if score >= 20 && score < 40 {
                     
                     // sustainability sprout
+                    self.ScoreImage.image = UIImage(named: "SustainabilityScore_2.png")
                     self.sustainableTitle.text = "Sustainability Sprout"
                     
                 } else if score >= 40 && score < 60 {
                     
-                    // sustainability blossom
+                    // sustainability sapling
+                    self.ScoreImage.image = UIImage(named: "SustainabilityScore_3.png")
                     self.sustainableTitle.text = "Sustainability Sapling"
                     
                 } else if score >= 60 && score < 80 {
                     
-                    // sustainably established
+                    // sustainably star
+                    self.ScoreImage.image = UIImage(named: "SustainabilityScore_4.png")
                     self.sustainableTitle.text = "Sustainability Star"
                     
                 } else if score >= 80 {
                     
                     // sustainability superstar
+                    self.ScoreImage.image = UIImage(named: "SustainabilityScore_5.png")
                     self.sustainableTitle.text = "Sustainability Superstar"
                     
                 }

@@ -86,11 +86,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "plan.it/ProfileViewController.swift"
-            timestampString = "515018127.032517"
+            timestampString = "516562173.188292"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
             landmarkName = "getUserFullName(completion:)"
             landmarkType = "7">
          </BreakpointContent>
